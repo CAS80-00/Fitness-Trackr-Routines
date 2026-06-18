@@ -7,37 +7,56 @@ export default function Login() {
   const { login } = useAuth();
   const { setPage } = usePage();
 
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  const tryLogin = async (formData) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setError(null);
 
-    const username = formData.get("username");
-    const password = formData.get("password");
     try {
       await login({ username, password });
-      setPage("activities");
+      setPage("routines"); // Redirect to routines so they can see their new dashboard!
     } catch (e) {
-      setError(e.message);
+      setError(e.message || "Invalid username or password.");
     }
   };
 
   return (
-    <>
+    <div className="auth-container">
       <h1>Log in to your account</h1>
-      <form action={tryLogin}>
+      <form onSubmit={handleSubmit}>
         <label>
           Username
-          <input type="text" name="username" required />
+          <input
+            type="text"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
         </label>
         <label>
           Password
-          <input type="password" name="password" required />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </label>
-        <button>Login</button>
-        {error && <p role="alert">{error}</p>}
+        <button type="submit">Login</button>
+        {error && (
+          <p role="alert" className="error">
+            {error}
+          </p>
+        )}
       </form>
-      <a onClick={() => setPage("register")}>Need an account? Register here.</a>
-    </>
+      <a onClick={() => setPage("register")} style={{ cursor: "pointer" }}>
+        Need an account? Register here.
+      </a>
+    </div>
   );
 }
