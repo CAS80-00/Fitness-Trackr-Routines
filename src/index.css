@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+form,
+label,
+main {
+  display: grid;
+  gap: 0.5rem;
+}
+
+#root {
+  width: 45ch;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+header nav {
+  display: flex;
+  gap: 1ch;
+}
+
+a {
+  color: teal;
+}
+
+a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+ul,
+ol {
+  padding-left: 1rem;
+}
+
+p[role="alert"] {
+  color: red;
+}
